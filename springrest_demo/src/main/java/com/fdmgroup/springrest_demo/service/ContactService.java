@@ -31,7 +31,8 @@ public class ContactService {
         return contactRepository.save(contact);
     }
 
-    public Contact amendContact(Long id, Contact contact) {
+    public Contact amendContact(Long id, Contact contact) throws ContactNotFoundException {
+        contactRepository.findById(id).orElseThrow(ContactNotFoundException::new);
         Contact oldContact = contactRepository.findById(id).get();
         oldContact.setFirstName(contact.getFirstName());
         oldContact.setMiddleName(contact.getMiddleName());
@@ -41,7 +42,8 @@ public class ContactService {
         return oldContact;
     }
 
-    public void removeContact(Long id) {
+    public void removeContact(Long id) throws ContactNotFoundException {
+        contactRepository.findById(id).orElseThrow(ContactNotFoundException::new);
         Contact contact = contactRepository.findById(id).get();
         contactRepository.delete(contact);
     }

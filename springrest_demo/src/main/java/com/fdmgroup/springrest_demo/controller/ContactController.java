@@ -3,6 +3,8 @@ package com.fdmgroup.springrest_demo.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.fdmgroup.springrest_demo.exception.ContactNotFoundException;
 import com.fdmgroup.springrest_demo.model.Contact;
 import com.fdmgroup.springrest_demo.service.ContactService;
@@ -46,7 +48,7 @@ public class ContactController {
     }
 
     @PostMapping
-    public ResponseEntity<Contact> createContact(@RequestBody Contact contact) {
+    public ResponseEntity<Contact> createContact(@Valid @RequestBody Contact contact) {
         Contact createContact = contactService.generateContact(contact);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(createContact.getContactId()).toUri();
@@ -54,7 +56,8 @@ public class ContactController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Contact> updateContact(@PathVariable("id") Long id, @RequestBody Contact contact) {
+    public ResponseEntity<Contact> updateContact(@PathVariable("id") Long id, @Valid @RequestBody Contact contact)
+            throws ContactNotFoundException {
         Contact updatedContact = contactService.amendContact(id, contact);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(updatedContact.getContactId()).toUri();
@@ -67,7 +70,7 @@ public class ContactController {
                     @Content(mediaType = MediaType.APPLICATION_JSON_VALUE),
                     @Content(mediaType = MediaType.APPLICATION_XML_VALUE) }) })
     @DeleteMapping("/{id}")
-    public void deleteContact(@PathVariable("id") Long id) {
+    public void deleteContact(@PathVariable("id") Long id) throws ContactNotFoundException {
         contactService.removeContact(id);
     }
 }

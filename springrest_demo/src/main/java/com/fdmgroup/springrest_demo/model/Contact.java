@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "CONTACTS")
@@ -14,12 +17,15 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long contactId;
+    @NotNull(message = "First name cannot be null.")
     @Column
     private String firstName;
     @Column
     private String middleName;
+    @NotBlank(message = "Last name cannot be blank.")
     @Column
     private String lastName;
+    @Pattern(regexp = "\\+[0-9]{1,3} [0-9]{10}", message = "Please enter a valid phone number")
     @Column
     private String phoneNumber;
 
