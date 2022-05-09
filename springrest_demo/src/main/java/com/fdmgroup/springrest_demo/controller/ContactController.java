@@ -2,7 +2,6 @@ package com.fdmgroup.springrest_demo.controller;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import com.fdmgroup.springrest_demo.exception.ContactNotFoundException;
 import com.fdmgroup.springrest_demo.model.Contact;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
