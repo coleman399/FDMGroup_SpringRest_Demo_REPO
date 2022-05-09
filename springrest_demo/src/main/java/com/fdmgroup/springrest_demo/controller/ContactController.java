@@ -8,6 +8,7 @@ import com.fdmgroup.springrest_demo.model.Contact;
 import com.fdmgroup.springrest_demo.service.ContactService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/api/v1/contacts")
@@ -55,6 +61,11 @@ public class ContactController {
         return ResponseEntity.created(location).body(updatedContact);
     }
 
+    @Operation(summary = "Deletes Contact with the specified id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Contact successfully deleted.", content = {
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE),
+                    @Content(mediaType = MediaType.APPLICATION_XML_VALUE) }) })
     @DeleteMapping("/{id}")
     public void deleteContact(@PathVariable("id") Long id) {
         contactService.removeContact(id);
