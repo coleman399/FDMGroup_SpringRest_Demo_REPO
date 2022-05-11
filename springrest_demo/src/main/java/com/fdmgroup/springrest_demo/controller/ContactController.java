@@ -64,7 +64,7 @@ public class ContactController {
         return ResponseEntity.created(location).body(updatedContact);
     }
 
-    @Operation(summary = "Deletes Contact with the specified id.")
+    @Operation(summary = "Deletes a Contact with the specified id.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Contact successfully deleted.", content = {
                     @Content(mediaType = MediaType.APPLICATION_JSON_VALUE),
